@@ -12,9 +12,13 @@ class DrugController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($category = null)
     {
-        $drugs = Drug::all();
+        if($category !== null){
+            $drugs = Drug::where('category', $category)->get();
+        }else{
+            $drugs = Drug::all();
+        }
         return response()->json($drugs);
 
     }
