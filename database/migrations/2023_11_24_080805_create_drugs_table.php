@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string("category");
             $table->integer("quantity")->unsigned();
             $table->integer("dosage_mg")->unsigned();
-            $table->date("expiry-date");
+            $table->date("expiry_date");
             $table->timestamps();
         });
     }

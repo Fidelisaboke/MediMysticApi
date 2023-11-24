@@ -42,7 +42,7 @@ class DrugController extends Controller
             $drug = new Drug();
             $drug->trade_name = $request->trade_name;
             $drug->drug_formula = $request->drug_formula;
-            $drug->category = $request->drug_category;
+            $drug->category = $request->category;
             $drug->quantity = $request->quantity;
             $drug->dosage_mg = $request->dosage_mg;
             $drug->expiry_date = $request->expiry_date;
@@ -71,7 +71,7 @@ class DrugController extends Controller
         else{
             response()->json([
                 "status" => 404,
-                "message"=> "Drug Not found.",
+                "message"=> "Drug not found.",
             ]);
         }
     }
@@ -110,7 +110,7 @@ class DrugController extends Controller
 
                 return response()->json([
                     "status" => 202,
-                    "message" => "Drug update",
+                    "message" => "Drug updated",
                 ], 202);
             }
         }else{
