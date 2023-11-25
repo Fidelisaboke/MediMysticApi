@@ -17,8 +17,8 @@ use App\Http\Controllers\Api\UserController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/client', function (Request $request) {
-    return $request->client();
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
 });
 
 /* Processes */
@@ -29,7 +29,7 @@ Route::controller(UserController::class)->group(function(){
 });
 
 // Logout
-Route::middleware('auth:sanctum')->post('logout', [ClientController::class, 'logout']);
+Route::middleware('auth:sanctum')->post('logout', [UserController::class, 'logout']);
 
 // Drugs - insecure endpoints
 Route::get('drugs', [DrugController::class, 'index']);
@@ -42,13 +42,13 @@ Route::delete('drugs/{id}', [DrugController::class, 'destroy']);
 Route::get('drugs/category/{category}', [DrugController::class, 'index']);
 
 // Drugs by user - secure endpoint
-Route::middleware('auth:api')->get('clients/{id}/drugs', [DrugController::class, 'index']);
+Route::middleware('auth:sanctum')->get('clients/{id}/drugs', [DrugController::class, 'index']);
 
 // Clients (end-users) - secure endpoints
 Route::middleware('auth:sanctum')->group(function(){
     Route::get('clients', [ClientController::class, 'index']);
     Route::get('clients/{id}', [ClientController::class, 'show']);
-    Route::post('clients', [ClientController::class, 'show']);
+    Route::post('clients', [ClientController::class, 'store']);
     Route::put('clients/{id}', [ClientController::class, 'update']);
     Route::delete('clients/{id}', [ClientController::class, 'destroy']);
     
@@ -56,5 +56,5 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::get('clients/gender/{gender}',[ClientController::class, 'index']);
     Route::get('clients/purchased/category/{drug_category}', [ClientController::class, 'index']);
     Route::get('clients/purchased/date/{purchase_date}', [ClientController::class, 'index']);
-    Route::get('clients/last-login/{last_login}', [ClientController::class, 'index']);
+    Route::get('clients/last-login/latest', [ClientController::class, 'indexByLastLogin']);
 });

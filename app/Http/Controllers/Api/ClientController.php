@@ -6,33 +6,27 @@ use Illuminate\Http\Request;
 use App\Models\Client;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class ClientController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index($gender = null, $drug_category = null, $purchase_date = null, $last_login = null){
+    public function index($gender = null, $drug_category = null, $purchase_date = null, string $order = null){
         if($gender !== null){
             $clients = Client::where('gender', $gender)->get();
         }else if($drug_category !== null){
             // Functionality required
-            $clients = Client::where('drug_category', $drug_category);
+            $clients = Client::where('drug_category', $drug_category)->get();
         } else if($purchase_date !== null){
             // Functionality required
-            $clients = Client::where('purchase_date', $purchase_date);
-        }
-         else if($last_login !== null){
-            if($last_login == 1){
-                $clients = Client::orderBy('last_login_at', 'asc')->get();
-            }else if($last_login == 0){
-                $clients = Client::orderBy('last_login_at', 'desc')->get();
-            }
-        }else{
+            $clients = Client::where('purchase_date', $purchase_date)->get();
+        } else{
             $clients = Client::all();
         }
         return response()->json($clients, 200);
-    }
+    }    
 
     /**
      * Store a newly created resource in storage.
@@ -79,7 +73,7 @@ class ClientController extends Controller
         }else{
             return response()->json([
                 "status" => 404,
-                "message" => "User not found."
+                "message" => "Client not found."
             ], 404);
         }
     }
@@ -118,7 +112,7 @@ class ClientController extends Controller
         } else{
             return response()->json([
                 "status" => 404,
-                "message" => "User not found"
+                "message" => "Client not found"
             ]);
         }
     }
@@ -140,8 +134,13 @@ class ClientController extends Controller
         } else{
             return response()->json([
                 "status" => 404,
-                "message" => "User not found"
+                "message" => "Client not found"
             ], 404);
         }
+    }
+
+    public function indexByLastLogin(){
+        $client = DB::table('clients')->latest('last_login_at')->get();
+        return response()->json($client, 200);
     }
 }
