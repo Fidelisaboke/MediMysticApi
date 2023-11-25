@@ -43,10 +43,15 @@ class UserController extends Controller
     }
 
     // Authenticate and login the user
-    public function login(Request $request){
+    public function login(Request $request){     
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
+            
+            /** @var \App\Models\User $user **/
             $user = Auth::user();
             $success['name'] = $user->name;
+
+            // Create token for user
+            $success['token'] = $user->createToken('DrugsApi', expiresAt:now()->addMonth())->plainTextToken;
 
             return response()->json([
                 "user" => $success,

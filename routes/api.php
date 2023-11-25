@@ -23,12 +23,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 /* Processes */
 // Login and register
 Route::controller(UserController::class)->group(function(){
-    Route::post('register/process', 'register');
-    Route::post('login/process', 'login');
+    Route::post('register', 'register');
+    Route::post('login', 'login');
 });
 
 // Logout
-Route::middleware('auth:api')->post('logout', 'UserController@logout');
+Route::middleware('auth:sanctum')->post('logout', [UserController::class, 'logout']);
 
 // Drugs API - insecure endpoint
 Route::get('drugs', [DrugController::class, 'index']);
@@ -41,11 +41,13 @@ Route::delete('drugs/{id}', [DrugController::class, 'destroy']);
 Route::get('drugs/category/{category}', [DrugController::class, 'index']);
 
 // Users API - secure endpoint
-Route::middleware('auth:api')->get('users', [UserController::class, 'index']);
-Route::middleware('auth:api')->get('users/{id}', [UserController::class, 'show']);
-
-// Getting users based on specific params
-Route::middleware('auth:api')->get('users/gender/{gender}',[UserController::class, 'show']);
-Route::middleware('auth:api')->get('users/purchased-drug/{drug_category}', [UserController::class, 'show']);
-Route::middleware('auth:api')->get('users/purchased-drug/{purchase_date}', [UserController::class, 'show']);
-Route::middleware('auth:api')->get('users/last-login/{last_login}', [UserController::class, 'show']);
+Route::middleware('auth:api')->group(function(){
+    Route::get('users', [UserController::class, 'index']);
+    Route::get('users/{id}', [UserController::class, 'show']);
+    
+    // Users based on specific params
+    Route::get('users/gender/{gender}',[UserController::class, 'index']);
+    Route::get('users/purchased-drug/{drug_category}', [UserController::class, 'index']);
+    Route::get('users/purchased-drug/{purchase_date}', [UserController::class, 'index']);
+    Route::get('users/last-login/{last_login}', [UserController::class, 'index']);
+});
