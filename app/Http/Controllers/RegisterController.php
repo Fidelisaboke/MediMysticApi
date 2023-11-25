@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use App\Models\User;
+use App\Models\Client;
 
 class RegisterController extends Controller
 {
@@ -29,7 +29,7 @@ class RegisterController extends Controller
                 'password' => bcrypt($request->password),
             ];
 
-            User::create($input);
+            Client::create($input);
 
             return redirect('sign-in')->with('status', 'Registration Success!');
         }

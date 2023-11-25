@@ -1,12 +1,11 @@
 <?php
-
+/* The API users */
 namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\Controller;
 
 class UserController extends Controller
@@ -15,9 +14,8 @@ class UserController extends Controller
     public function register(Request $request){
         // Validate details
         $validator = Validator::make($request->all(), [
-            'username' => 'string|required|max:40',
+            'name' => 'string|required|max:40',
             'email' => 'string|required|max:40',
-            'gender' => 'string||in:male,female',
             'password' => 'required',
         ]);
 
@@ -78,17 +76,8 @@ class UserController extends Controller
         ], 200);
     }
 
-    public function index($gender = null, $drug_category = null, $purchase_date = null, $last_login = null){
-        if($gender !== null){
-            $users = User::where('gender', $gender)->get();
-        }else if($drug_category !== null){
-            // Functionality required
-            $users = User::where('drug_category', $drug_category);
-        } else if($purchase_date !== null){
-            // Functionality required
-            $users = User::where('purchase_date', $purchase_date);
-        }
-         else if($last_login !== null){
+    public function index($last_login = null){
+        if($last_login !== null){
             $users = User::where('last_login', $last_login);
         }else{
             $users = User::all();
@@ -96,7 +85,7 @@ class UserController extends Controller
         return response()->json($users, 200);
     }
 
-    public function show(Request $request, $id){
+    public function show($id){
         $user = User::find($id);
         if(!empty($user)){
             return response()->json($user, 200);

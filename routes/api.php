@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\DrugController;
+use App\Http\Controllers\Api\ClientController;
 use App\Http\Controllers\Api\UserController;
 
 /*
@@ -16,21 +17,21 @@ use App\Http\Controllers\Api\UserController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:sanctum')->get('/client', function (Request $request) {
+    return $request->client();
 });
 
 /* Processes */
-// Login and register
+// Login and register - API user
 Route::controller(UserController::class)->group(function(){
     Route::post('register', 'register');
     Route::post('login', 'login');
 });
 
 // Logout
-Route::middleware('auth:sanctum')->post('logout', [UserController::class, 'logout']);
+Route::middleware('auth:sanctum')->post('logout', [ClientController::class, 'logout']);
 
-// Drugs API - insecure endpoint
+// Drugs - insecure endpoints
 Route::get('drugs', [DrugController::class, 'index']);
 Route::get('drugs/{id}', [DrugController::class, 'show']);
 Route::post('drugs', [DrugController::class, 'store']);
@@ -40,14 +41,20 @@ Route::delete('drugs/{id}', [DrugController::class, 'destroy']);
 // Get drugs of a specific category
 Route::get('drugs/category/{category}', [DrugController::class, 'index']);
 
-// Users API - secure endpoint
-Route::middleware('auth:api')->group(function(){
-    Route::get('users', [UserController::class, 'index']);
-    Route::get('users/{id}', [UserController::class, 'show']);
+// Drugs by user - secure endpoint
+Route::middleware('auth:api')->get('clients/{id}/drugs', [DrugController::class, 'index']);
+
+// Clients (end-users) - secure endpoints
+Route::middleware('auth:sanctum')->group(function(){
+    Route::get('clients', [ClientController::class, 'index']);
+    Route::get('clients/{id}', [ClientController::class, 'show']);
+    Route::post('clients', [ClientController::class, 'show']);
+    Route::put('clients/{id}', [ClientController::class, 'update']);
+    Route::delete('clients/{id}', [ClientController::class, 'destroy']);
     
-    // Users based on specific params
-    Route::get('users/gender/{gender}',[UserController::class, 'index']);
-    Route::get('users/purchased-drug/{drug_category}', [UserController::class, 'index']);
-    Route::get('users/purchased-drug/{purchase_date}', [UserController::class, 'index']);
-    Route::get('users/last-login/{last_login}', [UserController::class, 'index']);
+    // Clients based on specific params
+    Route::get('clients/gender/{gender}',[ClientController::class, 'index']);
+    Route::get('clients/purchased/category/{drug_category}', [ClientController::class, 'index']);
+    Route::get('clients/purchased/date/{purchase_date}', [ClientController::class, 'index']);
+    Route::get('clients/last-login/{last_login}', [ClientController::class, 'index']);
 });
