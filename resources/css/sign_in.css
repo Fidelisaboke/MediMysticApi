@@ -1,0 +1,80 @@
+html, body{
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+body{
+    background: aliceblue;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+form {
+    margin: 0% auto;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+    height: 100%;
+}
+.form-header, .form-content{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.form-header {
+    background: linear-gradient(180deg, rgb(218 160 219), rgb(251 202 255));
+    margin: 0%;
+    width: 60%;
+}
+.form-header h1{
+    text-align: center;
+}
+#img-syringe{
+    width: 128px;
+    height: 128px;
+}
+.form-content {
+    margin: 0%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 40%;
+}
+.sign-in-section{
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+    background: linear-gradient(176deg, rgb(129, 149, 215), #22c3ef);
+    width: 85%;
+    height: 85%;
+    justify-content: center;
+}
+.form-buttons {
+    display: flex;
+    flex-direction: row;
+}
+a{
+    color: rgb(154, 12, 201);
+}
+a:hover{
+    color: rgb(95, 2, 120);
+}
+#error_msg{
+    color: red;
+}
+#success_msg{
+    color: green;
+}
+@media (max-width:750px){
+    form{
+        display: flex;
+        flex-direction: column;
+    }
+    .form-content{
+        width: 100%;
+    }
+    .form-header{
+        width: 100%;
+    }
+}

@@ -18,7 +18,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-/* VIEW */
-// Register and Login
+/* VIEWS */
+// Homepage
+Route::view('home', 'home');
+
+// Register and Sign-in
 Route::view('register', 'register');
-Route::view('login', 'login');
+Route::view('sign-in', 'sign_in');

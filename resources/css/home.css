@@ -1,0 +1,325 @@
+@import url("imports/topbar.css");
+@import url("imports/footer.css");
+
+/*BODY*/
+body {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/*NAVIGATION BAR*/
+.nav-bar {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background: rgb(49, 49, 49);
+  position: fixed;
+  height: 35px;
+}
+.nav-bar a {
+  padding: 0% 5%;
+  text-align: center;
+  text-decoration: none;
+  height: inherit;
+  line-height: 35px;
+  color: white;
+}
+.nav-bar a:hover {
+  background-color: rgb(74, 74, 74);
+}
+.nav-bar a.active-page {
+  background: rgb(183, 18, 189);
+  color: rgb(255, 255, 255);
+}
+.nav-bar a.active-page:hover {
+  background: rgb(219, 19, 226);
+}
+#nav-login {
+  display: flex;
+  justify-content: flex-end;
+  margin-left: auto;
+  width: inherit;
+}
+
+/*Above the fold*/
+.welcome-container {
+  background: linear-gradient(180deg, rgb(218 160 219), rgb(251 202 255));
+  height: 420px;
+  margin: 0% auto;
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+#img-syringe {
+  width: 128px;
+  height: 128px;
+}
+.welcome-header {
+  box-sizing: border-box;
+  width: 50%;
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  margin: 0% auto;
+  align-items: center;
+}
+/*headline*/
+#page-headline {
+  font-size: 26px;
+  font-style: italic;
+}
+.headline-word {
+  color: blue;
+}
+.welcome-header h2 {
+  font-size: 40px;
+}
+.welcome-options {
+  display: flex;
+  flex-direction: row;
+}
+.btn-links {
+  display: inline-block;
+  padding: 5px 5px;
+  text-decoration: none;
+  color: white;
+  border: 1px ridge rgba(14, 51, 138, 0.797);
+  border-radius: 4px;
+  background-color: rgba(17, 75, 212, 0.797);
+  margin-right: 10px;
+}
+.btn-links:hover {
+  background-color: rgba(13, 58, 163, 0.797);
+}
+.header-image {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  align-items: center;
+}
+
+/*BENEFITS AND TESTIMONIAL STYLES*/
+/*testimonial*/
+.testimonials-section {
+  display: flex;
+  flex-direction: column;
+  border: 1px;
+  border-radius: 10px;
+  margin: 0 5% 0 5%;
+  padding: 16px;
+  width: 35%;
+  background: rgb(255, 255, 227);
+  box-shadow: 5px 5px 10px 2px rgba(0, 0, 0, 0.5);
+}
+#john-doe-testimonial {
+  font-size: 16px;
+}
+.benefits-container {
+  background: linear-gradient(180deg, rgb(132 208 255), rgb(157, 197, 224));
+  height: 420px;
+  margin: 0% auto;
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+/*benefits*/
+.benefits-section {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+}
+.benefits-section h2 {
+  font-size: 32px;
+}
+.benefits-section h3 {
+  font-size: 24px;
+}
+.benefits-list span {
+  font-size: 20px;
+}
+
+/*FEATURES*/
+.features-container {
+  display: flex;
+  flex-direction: row;
+
+  justify-content: center;
+  height: 640px;
+}
+.features-header,
+.features-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+}
+.features-header {
+  width: 40%;
+  background: linear-gradient(
+    180deg,
+    rgb(123, 236, 215),
+    rgb(105, 216, 202),
+    rgb(57, 199, 180)
+  );
+}
+.features-header h2 {
+  font-size: 32px;
+}
+.features-header h3 {
+  font-size: 28px;
+}
+.features-list {
+  width: 60%;
+  font-size: 20px;
+  background: rgb(223, 224, 248);
+  color: rgb(0, 0, 0);
+}
+.features-conclusion {
+  background: rgb(177, 177, 177);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.features-conclusion p {
+  font-size: 18px;
+  text-align: center;
+}
+.features-text {
+  color: rgb(115, 0, 138);
+}
+
+/*PAGE FOOTER*/
+.footer-container {
+  background: linear-gradient(180deg, rgb(56, 56, 56), rgb(60, 60, 60));
+  color: white;
+}
+.footer-container a {
+  color: rgb(10, 177, 202);
+  font-size: 14px;
+  text-decoration: none;
+}
+.footer-container a:hover {
+  text-decoration: underline;
+}
+.footer-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.footer-about {
+  margin: 0% auto;
+  width: 25%;
+}
+.footer-contact {
+  margin: 0% auto;
+  width: 50%;
+}
+.copyright-info span {
+  font-size: 14px;
+}
+
+/*media queries*/
+
+@media (max-width: 700px) {
+  .welcome-container {
+    display: flex;
+    flex-direction: column;
+    height: 480px;
+  }
+  .welcome-header {
+    width: 100%;
+  }
+  #header-image {
+    width: 100%;
+    margin: 0% auto;
+  }
+  #img-syringe {
+    width: 96px;
+    height: 96px;
+  }
+
+  #john-doe-testimonial,
+  .features-list,
+  .features-conclusion p {
+    font-size: 14px;
+    margin: 0;
+  }
+  .benefits-container {
+    display: flex;
+    flex-direction: column;
+    height: 620px;
+  }
+  .benefits-section h2,
+  .features-header h2 {
+    font-size: 28px;
+  }
+  .benefits-section h3,
+  .features-header h3 {
+    font-size: 22px;
+  }
+  .benefits-list span {
+    font-size: 16px;
+  }
+  .features-container {
+    display: flex;
+    flex-direction: column;
+    height: 600px;
+  }
+  .features-header {
+    width: 100%;
+  }
+  .features-list {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  #page-headline {
+    font-size: 24px;
+    font-style: italic;
+  }
+  .welcome-header h2 {
+    font-size: 32px;
+  }
+  #img-syringe {
+    width: 80px;
+    height: 80px;
+  }
+  #john-doe-testimonial,
+  .features-conclusion p {
+    font-size: 12px;
+  }
+  .benefits-list span {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 400px) {
+  #page-headline {
+    font-size: 20px;
+    font-style: italic;
+  }
+  .welcome-header h2 {
+    font-size: 28px;
+  }
+}
+.position {
+  font-style: normal;
+  font-family: "Times New Roman", Times, serif;
+  color: chocolate;
+  float: left;
+  font-size: 90%;
+}
+.medical {
+  text-transform: uppercase;
+  text-decoration: underline;
+  font-size: 100%;
+}

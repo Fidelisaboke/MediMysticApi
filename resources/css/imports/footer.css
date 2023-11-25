@@ -1,0 +1,29 @@
+/*PAGE FOOTER*/
+.footer-container{
+    background: linear-gradient(180deg, rgb(56, 56, 56), rgb(60, 60, 60));
+    color: white;
+}
+.footer-container a{
+    color: rgb(10, 177, 202);
+    font-size: 14px;
+    text-decoration: none;
+}
+.footer-container a:hover{
+    text-decoration: underline;
+}
+.footer-content{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.footer-about{
+    margin: 0% auto;
+    width: 25%;
+}
+.footer-contact{
+    margin: 0% auto;
+    width: 50%;
+}
+.copyright-info span{
+    font-size: 14px;
+}
