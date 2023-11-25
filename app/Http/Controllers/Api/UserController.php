@@ -27,9 +27,7 @@ class UserController extends Controller
                 "errors" => $validator->errors(),
             ], 422);
         }else{
-            $input = [
-                
-            ];
+            $input = $request->all();
 
             // Encrypt the password
             $input['password'] = bcrypt($input['password']);
