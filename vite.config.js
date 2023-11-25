@@ -8,9 +8,12 @@ export default defineConfig({
                 // CSS
                 'resources/css/home.css', 
                 'resources/css/sign_in.css',
+                'resources/css/register.css',
                 
                 // JS
-                'resources/js/app.js'],
+                'resources/js/app.js',
+                'resources/js/sign_in.js'
+            ],
             refresh: true,
         }),
     ],

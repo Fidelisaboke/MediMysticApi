@@ -1,0 +1,28 @@
+body{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    }
+    .register-form-container{
+        background: #f1fffe;
+        display: flex;
+        flex-direction: column;
+        border: 1px solid black;
+        width: 480px;
+        height: 680px;
+        margin: 0% auto;
+        border-radius: 25px;
+        align-items: center;
+        text-align: center;
+        box-shadow: 5px 2px 5px 2px rgb(0, 0, 0, 0.5);
+    }
+    .form-header{
+        height: 25%;
+        text-align: center;
+    }
+    #digital-pharmacy{
+        width: 96px;
+        height: 96px;
+    }
+    .register-form{
+        display: flex;
+        flex-direction: column;
+    }

@@ -60,10 +60,10 @@ a{
 a:hover{
     color: rgb(95, 2, 120);
 }
-#error_msg{
+.error_msg{
     color: red;
 }
-#success_msg{
+.success_msg{
     color: green;
 }
 @media (max-width:750px){

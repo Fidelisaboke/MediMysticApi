@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    @vite(['resources/css/sign_in.css'])
+    @vite(['resources/css/sign_in.css', 'resources/js/sign_in.js'])
     <title>Sign In</title>
 </head>
 
@@ -18,8 +18,13 @@
         <div class="form-content">
             <div class="sign-in-section">
                 <h2>SIGN IN</h2>
-                <input type="text" placeholder="Email or Username" id="username" name="user_name"><br>
-                <input type="password" placeholder="Enter password..." id="password" name="user_pass"><br>
+                @if($errors->any())
+                    <span id="error_msg" style="color:red">@error('error'){{$message}}@enderror</span><br>
+                @elseif (session('status'))
+                    <span id="success_msg" style="color: green">{{session('status')}}</span><br>
+                @endif
+                <input type="email" placeholder="Email..." id="email" name="email"><br>              
+                <input type="password" placeholder="Enter password..." id="password" name="password"><br>
                 <div class="form-buttons">
                     <button type="submit" name="submit" value="submit">Submit</button><br>
                 </div><br><br>

@@ -15,7 +15,7 @@ class UserController extends Controller
     public function register(Request $request){
         // Validate details
         $validator = Validator::make($request->all(), [
-            'name' => 'string|required|max:40',
+            'username' => 'string|required|max:40',
             'email' => 'string|required|max:40',
             'gender' => 'string||in:male,female',
             'password' => 'required',
@@ -27,7 +27,9 @@ class UserController extends Controller
                 "errors" => $validator->errors(),
             ], 422);
         }else{
-            $input = $request->all();
+            $input = [
+                
+            ];
 
             // Encrypt the password
             $input['password'] = bcrypt($input['password']);

@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\SignInController;
+use App\Http\Controllers\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,3 +27,10 @@ Route::view('home', 'home');
 // Register and Sign-in
 Route::view('register', 'register');
 Route::view('sign-in', 'sign_in');
+
+// User dashboard
+Route::view('user-dashboard', 'user_dashboard');
+
+/* PROCESS */
+Route::post('sign-in/process', [SignInController::class, 'signIn']);
+Route::post('register/process', [RegisterController::class, 'register']);
