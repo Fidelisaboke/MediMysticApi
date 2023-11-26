@@ -44,15 +44,17 @@ Route::get('drugs/category/{category}', [DrugController::class, 'index']);
 // Drugs by user - secure endpoint
 Route::middleware('auth:sanctum')->get('clients/{id}/drugs', [DrugController::class, 'index']);
 
-// Clients (end-users) - secure endpoints
+// Clients (end-users) - secure endpoints (Both regular and premium API users)
 Route::middleware('auth:sanctum')->group(function(){
     Route::get('clients', [ClientController::class, 'index']);
     Route::get('clients/{id}', [ClientController::class, 'show']);
     Route::post('clients', [ClientController::class, 'store']);
     Route::put('clients/{id}', [ClientController::class, 'update']);
     Route::delete('clients/{id}', [ClientController::class, 'destroy']);
-    
-    // Clients based on specific params
+});
+
+// Clients based on specific params - Premium API users only
+Route::middleware(['auth:sanctum', 'check.subscription'])->group(function(){
     Route::get('clients/gender/{gender}',[ClientController::class, 'index']);
     Route::get('clients/purchased/category/{drug_category}', [ClientController::class, 'index']);
     Route::get('clients/purchased/date/{purchase_date}', [ClientController::class, 'index']);

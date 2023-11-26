@@ -1,0 +1,15 @@
+
+[
+  {
+    "name": "John Doe",
+    "email": "johndoe@example.com",
+    "subscription_level": "regular",
+    "password": "password123"
+  },
+  {
+    "name": "Jane Smith",
+    "email": "janesmith@example.com",
+    "subscription_level": "premium",
+    "password": "password456"
+  }
+]

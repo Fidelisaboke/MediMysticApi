@@ -20,7 +20,7 @@ class DrugSeeder extends Seeder
             Drug::create([
                 'trade_name' => 'Drug' . $i,
                 'drug_formula' => 'Formula' . $i,
-                'category' => 'Category' . $i,
+                'category' => $i % 2 == 0 ? 'painkiller': 'vaccine',
                 'quantity' => rand(50, 200),
                 'dosage_mg' => rand(10, 100),
                 'expiry_date' => Carbon::now()->addMonths(rand(1, 12))->toDateString(),
