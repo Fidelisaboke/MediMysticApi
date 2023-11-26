@@ -6,7 +6,7 @@ use App\Http\Controllers\Api\DrugController;
 use App\Http\Controllers\Api\ClientController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\DrugCategoryController;
-
+use App\Http\Controllers\Api\AdminController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -22,14 +22,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-/* Processes */
+// Login - Admin
+Route::post('admin/login', [AdminController::class, 'login']);
+
 // Login and register - API user
 Route::controller(UserController::class)->group(function(){
     Route::post('register', 'register');
     Route::post('login', 'login');
 });
 
-// Logout
+// Logout - API user
 Route::middleware('auth:sanctum')->post('logout', [UserController::class, 'logout']);
 
 // Drugs - insecure endpoints
@@ -40,7 +42,7 @@ Route::put('drugs/{id}', [DrugController::class, 'update']);
 Route::delete('drugs/{id}', [DrugController::class, 'destroy']);
 
 // Get drugs of a specific category
-Route::get('drugs/category/{category}', [DrugController::class, 'index']);
+Route::get('drugs/category/{id}', [DrugController::class, 'indexByDrugCategory']);
 
 // Drugs by user - secure endpoint
 Route::middleware('auth:sanctum')->get('clients/{id}/drugs', [DrugController::class, 'index']);

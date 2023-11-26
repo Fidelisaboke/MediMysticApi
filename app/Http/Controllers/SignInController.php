@@ -11,7 +11,6 @@ class SignInController extends Controller
     public function signIn(Request $request){
         if(Auth::guard('client')->attempt(['email' => $request->email, 'password' => $request->password])){
             return redirect('user-dashboard');
-            
         }else{
             return redirect('sign-in')->withErrors(['error' => 'Invalid email or password']);
         }

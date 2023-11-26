@@ -15,7 +15,8 @@ class CheckSubscription
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(auth()->user()->subscription_level === 'premium'){
+        // Either the user is a premium user or an admin
+        if(auth()->user()->subscription_level === 'premium' || get_class(auth()->user()) === 'App\Models\Admin'){
             return $next($request);
         }else{
             return response()->json(['error' => 'Unauthorized. Premium users only'], 403);

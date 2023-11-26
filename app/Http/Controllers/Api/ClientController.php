@@ -117,7 +117,7 @@ class ClientController extends Controller
                     $client = Client::find($id);
                     $client->name = is_null($request->name) ? $client->name : $request->name;
                     $client->email = is_null($request->email) ? $client->email : $request->email;
-                    $client->gender = is_null($client->gender) ? $client->gender : $request->gender;
+                    $client->gender = is_null($request->gender) ? $client->gender : $request->gender;
                     $client->save();
 
                     return response()->json([

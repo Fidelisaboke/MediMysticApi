@@ -13,13 +13,9 @@ class DrugController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index($category = null)
+    public function index()
     {
-        if($category !== null){
-            $drugs = Drug::where('category', $category)->get();
-        }else{
-            $drugs = Drug::all();
-        }
+        $drugs = Drug::all();
         return response()->json($drugs);
 
     }
@@ -179,5 +175,19 @@ class DrugController extends Controller
                 "message" => "Drug not found."
             ], 404);
         }
+    }
+
+
+    // Additional methods
+    public function indexByDrugCategory(string $id)
+    {
+        // Get all drugs in a particular drug category using a JOIN query
+        $drugs = DB::table('drugs')
+            ->join('drug_categories', 'drugs.drug_category_id', '=', 'drug_categories.id')
+            ->select('drugs.*', 'drug_categories.category_name')
+            ->where('drug_categories.id', $id)
+            ->get();
+
+        return response()->json($drugs);
     }
 }
