@@ -9,7 +9,7 @@ class SignInController extends Controller
 {
     // Authenticate and sign in
     public function signIn(Request $request){
-        if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
+        if(Auth::guard('client')->attempt(['email' => $request->email, 'password' => $request->password])){
             return redirect('user-dashboard');
             
         }else{
