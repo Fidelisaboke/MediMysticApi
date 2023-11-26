@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\DrugController;
 use App\Http\Controllers\Api\ClientController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\DrugCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,3 +61,10 @@ Route::middleware(['auth:sanctum', 'check.subscription'])->group(function(){
     Route::get('clients/purchased/date/{purchase_date}', [ClientController::class, 'index']);
     Route::get('clients/last-login/latest', [ClientController::class, 'indexByLastLogin']);
 });
+
+// Drug categories
+Route::get('drug-categories', [DrugCategoryController::class, 'index']);
+Route::get('drug-categories/{id}', [DrugCategoryController::class, 'show']);
+Route::post('drug-categories', [DrugCategoryController::class, 'store']);
+Route::put('drug-categories/{id}', [DrugCategoryController::class, 'update']);
+Route::delete('drug-categories/{id}', [DrugCategoryController::class, 'destroy']);

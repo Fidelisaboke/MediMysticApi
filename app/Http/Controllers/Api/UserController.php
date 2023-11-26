@@ -114,6 +114,7 @@ class UserController extends Controller
 
     public function show($id){
         try{
+            $user = User::find($id);
             if(!empty($user)){
             return response()->json($user, 200);
             }else{

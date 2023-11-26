@@ -14,15 +14,15 @@ class DrugSeeder extends Seeder
      */
     public function run(): void
     {
-        // 10 Drugs:
-        // Generate 10 records with random data
+        // Generate 10 drugs with random data
         for ($i = 1; $i <= 10; $i++) {
             Drug::create([
+                'drug_category_id' => rand(1, 3),
                 'trade_name' => 'Drug' . $i,
                 'drug_formula' => 'Formula' . $i,
-                'category' => $i % 2 == 0 ? 'painkiller': 'vaccine',
                 'quantity' => rand(50, 200),
                 'dosage_mg' => rand(10, 100),
+                'drug_price' => rand(100, 1000),
                 'expiry_date' => Carbon::now()->addMonths(rand(1, 12))->toDateString(),
             ]);
         }

@@ -47,17 +47,25 @@ class ClientController extends Controller
                 "errors" => $validator->errors(),
             ], 422);
         }else{
-            $input = $request->all();
 
-            // Encrypt the password
-            $input['password'] = bcrypt($input['password']);
-            
-            Client::create($input);
-            
-            return response()->json([
-                "status" => 200,
-                "message" => "User registered successfully."
-            ], 200);
+            try{
+                $input = $request->all();
+
+                // Encrypt the password
+                $input['password'] = bcrypt($input['password']);
+                
+                Client::create($input);
+                
+                return response()->json([
+                    "status" => 200,
+                    "message" => "User registered successfully."
+                ], 200);
+            }catch(\Exception $e){
+                return response()->json([
+                    "status" => 500,
+                    "message" => $e->getMessage()
+                ], 500);
+            }
         }
     }
 
@@ -67,14 +75,21 @@ class ClientController extends Controller
     public function show(string $id)
     {
         // Get specific client
-        $client = Client::find($id);
-        if(!empty($client)){
-            return response()->json($client, 200);
-        }else{
+        try{
+            $client = Client::find($id);
+            if(!empty($client)){
+                return response()->json($client, 200);
+            }else{
+                return response()->json([
+                    "status" => 404,
+                    "message" => "Client not found."
+                ], 404);
+            }
+        }catch(\Exception $e){
             return response()->json([
-                "status" => 404,
-                "message" => "Client not found."
-            ], 404);
+                "status" => 500,
+                "message" => $e->getMessage()
+            ], 500);
         }
     }
 
@@ -98,15 +113,23 @@ class ClientController extends Controller
                     "errors" => $validator->errors(),
                 ], 422);
             }else{
-                $client = Client::find($id);
-                $client->name = is_null($request->name) ? $client->name : $request->name;
-                $client->email = is_null($request->email) ? $client->email : $request->email;
-                $client->gender = is_null($client->gender) ? $client->gender : $request->gender;
+                try{
+                    $client = Client::find($id);
+                    $client->name = is_null($request->name) ? $client->name : $request->name;
+                    $client->email = is_null($request->email) ? $client->email : $request->email;
+                    $client->gender = is_null($client->gender) ? $client->gender : $request->gender;
+                    $client->save();
 
-                return response()->json([
-                    "status"=> 200,
-                    "message" => "User updated."
-                ], 200);
+                    return response()->json([
+                        "status"=> 200,
+                        "message" => "User updated."
+                    ], 200);
+                }catch(\Exception $e){
+                    return response()->json([
+                        "status" => 500,
+                        "message" => $e->getMessage()
+                    ], 500);
+                }
             }
 
         } else{

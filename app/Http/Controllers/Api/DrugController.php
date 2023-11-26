@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Drug;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class DrugController extends Controller
 {
@@ -29,11 +30,13 @@ class DrugController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
+            'drug_category_id' => 'required|integer',
             'trade_name' => 'required|string', 
             'drug_formula' => 'required|string', 
             'category' => 'required|string', 
             'quantity' => 'required|integer|min:1', 
             'dosage_mg' => 'required|integer|min:1', 
+            'drug_price' => 'required|numeric|min:1',
             'expiry_date' => 'required|date',
         ]);
 
@@ -43,20 +46,33 @@ class DrugController extends Controller
                 "errors" => $validator->errors(),
             ], 422);
         }else{
-            $drug = new Drug();
-            $drug->trade_name = $request->trade_name;
-            $drug->drug_formula = $request->drug_formula;
-            $drug->category = $request->category;
-            $drug->quantity = $request->quantity;
-            $drug->dosage_mg = $request->dosage_mg;
-            $drug->expiry_date = $request->expiry_date;
 
-            $drug->save();
+            // Check if drug category exists before creating drug
+            $drug_category = DB::table('drug_categories')->where('id', $request->drug_category_id)->first();
+            if(empty($drug_category)){
+                return response()->json([
+                    "status" => 404,
+                    "message" => "Drug category not found.",
+                ], 404);
+            }else{
+                $drug = new Drug();
+                $drug->drug_category_id = $request->drug_category_id;
+                $drug->trade_name = $request->trade_name;
+                $drug->drug_formula = $request->drug_formula;
+                $drug->category = $request->category;
+                $drug->quantity = $request->quantity;
+                $drug->dosage_mg = $request->dosage_mg;
+                $drug->drug_price = $request->drug_price;
+                $drug->expiry_date = $request->expiry_date;
 
-            return response()->json([
-                "status" => 201,
-                "message" => "Drug added successfully",
-            ]);
+                $drug->save();
+
+                return response()->json([
+                    "status" => 201,
+                    "message" => "Drug added successfully",
+                ]);
+
+            }
         }
         
     }
@@ -88,11 +104,13 @@ class DrugController extends Controller
         //
         if(Drug::where('id', $id)->exists()){
             $validator = Validator::make($request->all(), [
+                'drug_category_id' => 'integer',
                 'trade_name' => 'string', 
                 'drug_formula' => 'string', 
                 'category' => 'string', 
                 'quantity' => 'integer|min:1', 
                 'dosage_mg' => 'integer|min:1', 
+                'drug_price' => 'numeric|min:1',
                 'expiry_date' => 'date',
             ]);
     
@@ -102,12 +120,28 @@ class DrugController extends Controller
                     "errors" => $validator->errors(),
                 ], 422);
             }else{
+
                 $drug = Drug::find($id);
+                // Check if drug category exists
+
+                if($request->drug_category_id !== null){
+                    $drug_category = DB::table('drug_categories')->where('id', $request->drug_category_id)->first();
+                    if(empty($drug_category)){
+                        return response()->json([
+                            "status" => 404,
+                            "message" => "Drug category not found.",
+                        ], 404);
+                    }else{
+                        $drug->drug_category_id = $request->drug_category_id;
+                    }
+                }
+
                 $drug->trade_name = is_null($request->trade_name) ? $drug->trade_name : $request->trade_name;
                 $drug->drug_formula = is_null($request->drug_formula) ? $drug->drug_formula: $request->drug_formula;
                 $drug->category = is_null($request->category) ? $drug->category : $request->category;
                 $drug->quantity = is_null($request->quantity) ? $drug->quantity : $request->quantity;
                 $drug->dosage_mg = is_null($request->dosage_mg) ? $drug->dosage_mg : $request->dosage_mg;
+                $drug->drug_price = is_null($request->drug_price) ? $drug->drug_price : $request->drug_price;
                 $drug->expiry_date = is_null($request->expiry_date) ? $drug->expiry_date : $request->expiry_date;
 
                 $drug->save();
