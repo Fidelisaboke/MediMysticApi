@@ -57,7 +57,10 @@ class UserController extends Controller
                 $success['name'] = $user->name;
 
                 // Create token for user
-                $success['token'] = $user->createToken('DrugsApi', expiresAt:now()->addMonth())->plainTextToken;
+                $success['token'] = $user->createToken('DrugsApi', expiresAt:now()->addYear())->plainTextToken;
+                
+                // Add expiry date to success array
+                $success['expires_at'] = now()->addYear();
 
                 return response()->json([
                     "user" => $success,

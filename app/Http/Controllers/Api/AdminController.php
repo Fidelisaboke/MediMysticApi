@@ -14,11 +14,15 @@ class AdminController extends Controller
             /** @var \App\Models\Admin $admin **/
             $admin = Auth::guard('admin')->user();
 
-            $token = $admin->createToken('admin_token')->plainTextToken;
+            // Create token for admin
+            $success['token'] = $admin->createToken('admin_token', expiresAt:now()->addYear())->plainTextToken;
+            
+            $success['expires_at'] = now()->addYear();
+            
             return response()->json([
                 "status" => 200,
                 "message" => "Login successful.",
-                "token" => $token,
+                "token" => $success,
                 "admin" => $admin,
             ], 200);
         }else{
