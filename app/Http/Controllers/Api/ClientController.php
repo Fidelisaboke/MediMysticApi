@@ -17,11 +17,24 @@ class ClientController extends Controller
         if($gender !== null){
             $clients = Client::where('gender', $gender)->get();
         }else if($drug_category !== null){
-            // Functionality required
-            $clients = Client::where('drug_category', $drug_category)->get();
+
+            // List of all clients who have purchased a specific drug in a particular category
+            DB::table('clients')
+            ->join('invoices', 'clients.id', '=', 'invoices.client_id')
+            ->join('drugs', 'invoices.drug_id', '=', 'drugs.id')
+            ->join('drug_categories', 'drugs.drug_category_id', '=', 'drug_categories.id')
+            ->select('clients.id', 'clients.name', 'drugs.trade_name', 'drug_categories.category')
+            ->where('drug_categories.category', $drug_category);
+
         } else if($purchase_date !== null){
-            // Functionality required
-            $clients = Client::where('purchase_date', $purchase_date)->get();
+
+            // List of all users who purchased a drug on a particular date
+            DB::table('clients')
+            ->join('invoices', 'clients.id', '=', 'invoices.client_id')
+            ->join('drugs', 'invoices.drug_id', '=', 'drugs.id')
+            ->select('clients.id', 'clients.name', 'drugs.trade_name', 'invoices.purchase_date')
+            ->where('invoices.purchase_date', $purchase_date);
+            
         } else{
             $clients = Client::all();
         }

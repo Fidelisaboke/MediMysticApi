@@ -45,7 +45,7 @@ Route::delete('drugs/{id}', [DrugController::class, 'destroy']);
 Route::get('drugs/category/{id}', [DrugController::class, 'indexByDrugCategory']);
 
 // Drugs by user - secure endpoint
-Route::middleware('auth:sanctum')->get('clients/{id}/drugs', [DrugController::class, 'index']);
+Route::middleware('auth:sanctum')->get('clients/{client_id}/drugs', [DrugController::class, 'index']);
 
 // Clients (end-users) - secure endpoints (Both regular and premium API users)
 Route::middleware('auth:sanctum')->group(function(){
