@@ -59,8 +59,8 @@ Route::middleware('auth:sanctum')->group(function(){
 // Clients based on specific params - Premium API users only
 Route::middleware(['auth:sanctum', 'check.subscription'])->group(function(){
     Route::get('clients/gender/{gender}',[ClientController::class, 'index']);
-    Route::get('clients/purchased/category/{drug_category}', [ClientController::class, 'index']);
-    Route::get('clients/purchased/date/{purchase_date}', [ClientController::class, 'index']);
+    Route::get('clients/purchased/category/{drug_category}', [ClientController::class, 'indexByDrugCategory']);
+    Route::get('clients/purchased/date/{purchase_date}', [ClientController::class, 'indexByPurchaseDate']);
     Route::get('clients/last-login/latest', [ClientController::class, 'indexByLastLogin']);
 });
 

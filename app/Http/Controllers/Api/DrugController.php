@@ -20,7 +20,7 @@ class DrugController extends Controller
             $drugs = DB::table('drugs')
                 ->join('invoices', 'drugs.id', '=', 'invoices.drug_id')
                 ->join('clients', 'invoices.client_id', '=', 'clients.id')
-                ->select('drugs.id', 'drugs.name', 'clients.name')
+                ->select('drugs.id', 'drugs.trade_name', 'clients.name')
                 ->where('clients.id', $client_id)
                 ->get();
             return response()->json($drugs);
