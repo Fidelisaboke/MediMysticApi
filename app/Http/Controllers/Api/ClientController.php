@@ -13,28 +13,9 @@ class ClientController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index($gender = null, $drug_category = null, $purchase_date = null, string $order = null){
+    public function index($gender = null){
         if($gender !== null){
-            $clients = Client::where('gender', $gender)->get();
-        }else if($drug_category !== null){
-
-            // List of all clients who have purchased a specific drug in a particular category
-            DB::table('clients')
-            ->join('invoices', 'clients.id', '=', 'invoices.client_id')
-            ->join('drugs', 'invoices.drug_id', '=', 'drugs.id')
-            ->join('drug_categories', 'drugs.drug_category_id', '=', 'drug_categories.id')
-            ->select('clients.id', 'clients.name', 'drugs.trade_name', 'drug_categories.category')
-            ->where('drug_categories.category', $drug_category);
-
-        } else if($purchase_date !== null){
-
-            // List of all users who purchased a drug on a particular date
-            DB::table('clients')
-            ->join('invoices', 'clients.id', '=', 'invoices.client_id')
-            ->join('drugs', 'invoices.drug_id', '=', 'drugs.id')
-            ->select('clients.id', 'clients.name', 'drugs.trade_name', 'invoices.purchase_date')
-            ->where('invoices.purchase_date', $purchase_date);
-            
+            $clients = Client::where('gender', $gender)->get();      
         } else{
             $clients = Client::all();
         }
@@ -178,5 +159,28 @@ class ClientController extends Controller
     public function indexByLastLogin(){
         $client = DB::table('clients')->latest('last_login_at')->get();
         return response()->json($client, 200);
+    }
+
+    public function indexByDrugCategory($drug_category){
+        // List of all clients who have purchased a specific drug in a particular category
+        $clients = DB::table('clients')
+        ->join('invoices', 'clients.id', '=', 'invoices.client_id')
+        ->join('drugs', 'invoices.drug_id', '=', 'drugs.id')
+        ->join('drug_categories', 'drugs.drug_category_id', '=', 'drug_categories.id')
+        ->select('clients.id', 'clients.name', 'drugs.trade_name', 'drug_categories.category_name')
+        ->where('drug_categories.category_name', $drug_category)->get();
+
+        return response()->json($clients, 200);
+    }
+
+    public function indexByPurchaseDate($purchase_date){
+        // List of all users who purchased a drug on a particular date
+        $clients = DB::table('clients')
+        ->join('invoices', 'clients.id', '=', 'invoices.client_id')
+        ->join('drugs', 'invoices.drug_id', '=', 'drugs.id')
+        ->select('clients.id', 'clients.name', 'drugs.trade_name', 'invoices.invoice_date')
+        ->where('invoices.invoice_date', $purchase_date)->get();
+
+        return response()->json($clients, 200);
     }
 }
