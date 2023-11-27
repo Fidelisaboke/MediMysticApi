@@ -13,11 +13,21 @@ class DrugController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($client_id = null)
     {
-        $drugs = Drug::all();
-        return response()->json($drugs);
-
+        if($client_id !== null){
+            // List of drugs purchased by a user
+            $drugs = DB::table('drugs')
+                ->join('invoices', 'drugs.id', '=', 'invoices.drug_id')
+                ->join('clients', 'invoices.client_id', '=', 'clients.id')
+                ->select('drugs.id', 'drugs.name', 'clients.name')
+                ->where('clients.id', $client_id)
+                ->get();
+            return response()->json($drugs);
+        }else{
+            $drugs = Drug::all();
+            return response()->json($drugs);
+        }
     }
 
     /**
