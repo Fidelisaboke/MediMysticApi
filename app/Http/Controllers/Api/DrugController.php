@@ -29,7 +29,6 @@ class DrugController extends Controller
             'drug_category_id' => 'required|integer',
             'trade_name' => 'required|string', 
             'drug_formula' => 'required|string', 
-            'category' => 'required|string', 
             'quantity' => 'required|integer|min:1', 
             'dosage_mg' => 'required|integer|min:1', 
             'drug_price' => 'required|numeric|min:1',
@@ -55,7 +54,6 @@ class DrugController extends Controller
                 $drug->drug_category_id = $request->drug_category_id;
                 $drug->trade_name = $request->trade_name;
                 $drug->drug_formula = $request->drug_formula;
-                $drug->category = $request->category;
                 $drug->quantity = $request->quantity;
                 $drug->dosage_mg = $request->dosage_mg;
                 $drug->drug_price = $request->drug_price;
@@ -103,7 +101,6 @@ class DrugController extends Controller
                 'drug_category_id' => 'integer',
                 'trade_name' => 'string', 
                 'drug_formula' => 'string', 
-                'category' => 'string', 
                 'quantity' => 'integer|min:1', 
                 'dosage_mg' => 'integer|min:1', 
                 'drug_price' => 'numeric|min:1',
@@ -134,7 +131,6 @@ class DrugController extends Controller
 
                 $drug->trade_name = is_null($request->trade_name) ? $drug->trade_name : $request->trade_name;
                 $drug->drug_formula = is_null($request->drug_formula) ? $drug->drug_formula: $request->drug_formula;
-                $drug->category = is_null($request->category) ? $drug->category : $request->category;
                 $drug->quantity = is_null($request->quantity) ? $drug->quantity : $request->quantity;
                 $drug->dosage_mg = is_null($request->dosage_mg) ? $drug->dosage_mg : $request->dosage_mg;
                 $drug->drug_price = is_null($request->drug_price) ? $drug->drug_price : $request->drug_price;
