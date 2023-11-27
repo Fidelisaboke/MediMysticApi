@@ -39,7 +39,7 @@ class DrugController extends Controller
             'drug_category_id' => 'required|integer',
             'trade_name' => 'required|string', 
             'drug_formula' => 'required|string', 
-            'category' => 'required|string', 
+            'category' => 'required|string',
             'quantity' => 'required|integer|min:1', 
             'dosage_mg' => 'required|integer|min:1', 
             'drug_price' => 'required|numeric|min:1',
