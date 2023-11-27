@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("client_id")->index()->constrained("clients");
+            $table->foreignId('client_id')->index()->constrained("clients")->cascadeOnDelete();
             $table->foreignId("drug_id")->index()->constrained("drugs");
             $table->date("invoice_date");
             $table->timestamps();
