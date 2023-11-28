@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('drugs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("drug_category_id")->index()->constrained("drug_categories");
+            $table->foreignId("drug_category_id")->nullable()->index()->constrained("drug_categories")->nullOnDelete();
             $table->string("trade_name");
             $table->string("drug_formula");
             $table->integer("quantity")->unsigned();
