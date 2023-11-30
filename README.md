@@ -27,4 +27,5 @@ Need some help?
 
 You can check these links for further information :<br>
 **API Documentation:** https://medica-mystics-devs.postman.co/workspace/MedicaMystic-API-Workspace~48abf318-5e37-487c-82aa-e6e189b69d7a/collection/31418538-900da663-b174-481a-8c25-639847392b8b?action=share&creator=31418538<br>
+
 **MedicaMystic Website:** https://github.com/Fidelisaboke/MedicaMystic
